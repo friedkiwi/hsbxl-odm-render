@@ -19,7 +19,7 @@
     });
 
     L.tileLayer("./tiles/{z}/{x}/{-y}.png", {
-        minZoom: 16,
+        minZoom: 18,
         maxZoom: 23,
         bounds: L.latLngBounds([50.85416863251155, 4.31723529714381], [
             50.85726927048712, 4.32229231305996
@@ -47,7 +47,14 @@
         .bindPopup("Building A front door<br/><a href='https://tools.hsbxl.be/ldapviewer.php'>Access codes</a>")
         .addTo(map);
 
-    map.setView([50.855691, 4.319542], 19);
+    L.marker([50.85634329509197, 4.317931180726016])
+        .bindPopup("Omnomnom (Delhaize)<br/><a href='https://stores.delhaize.be/nl/delhaize-karreveld'>Opening hours</a>")
+        .addTo(map);
+
+    map.setMaxBounds(L.latLngBounds([50.85416863251155, 4.31723529714381], [
+        50.85726927048712, 4.32229231305996
+    ]));
+    map.setView([50.855691, 4.319542], 18);
 </script>
 
 </body>
