@@ -1,5 +1,54 @@
 <html>
+<head>
+    <title>HSBXL ODM Render</title>
+    <link rel="stylesheet" href="js/leaflet-1.9.4/leaflet.css" />
+    <link rel="stylesheet" href="css/hsbxl-odm-render.css" />
+    <script src="js/leaflet-1.9.4/leaflet.js"></script>
+</head>
 <body>
-<h2>Hello World!</h2>
+<div id="mapdiv"></div>
+
+<div id="titlediv" class="leaflet-bar">
+    <h2>HSBXL Aerial view</h2>
+</div>
+
+<script>
+
+    const map = L.map("mapdiv", {
+        crs: L.CRS.EPSG3857
+    });
+
+    L.tileLayer("./tiles/{z}/{x}/{-y}.png", {
+        minZoom: 16,
+        maxZoom: 23,
+        bounds: L.latLngBounds([50.85416863251155, 4.31723529714381], [
+            50.85726927048712, 4.32229231305996
+        ]),
+        attribution: '&copy; <a href="https://www.cyber.gent/">CYBER.gent</a>'
+    }).addTo(map);
+
+    L.marker([50.8556229064469, 4.321093914628905])
+        .bindPopup("<a href='https://hsbxl.be'>HSBXL</a>")
+        .addTo(map);
+
+    L.marker([50.855395213956605, 4.321632430163667])
+        .bindPopup("Pedestrian entrance (A3)<br/><a href='https://tools.hsbxl.be/ldapviewer.php'>Access codes</a>")
+        .addTo(map);
+
+    L.marker([50.85522116550696, 4.320734516586821])
+        .bindPopup("Turnstiles<br/><a href='https://tools.hsbxl.be/ldapviewer.php'>Access codes</a>")
+        .addTo(map);
+
+    L.marker([50.85509798282012, 4.3206721552286815])
+        .bindPopup("Black gate - car access<br/><a href='https://tools.hsbxl.be/ldapviewer.php'>Access codes</a>")
+        .addTo(map);
+
+    L.marker([50.85559646716629, 4.321171030153764])
+        .bindPopup("Building A front door<br/><a href='https://tools.hsbxl.be/ldapviewer.php'>Access codes</a>")
+        .addTo(map);
+
+    map.setView([50.855691, 4.319542], 19);
+</script>
+
 </body>
 </html>
