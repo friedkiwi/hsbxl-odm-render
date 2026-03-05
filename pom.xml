@@ -5,8 +5,13 @@
   <artifactId>hsbxl-odm-render</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>hsbxl-odm-render Maven Webapp</name>
+  <name>hsbxl-odm-render</name>
   <url>http://maven.apache.org</url>
+  <properties>
+    <maven.compiler.release>8</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <jetty.version>9.4.54.v20240208</jetty.version>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -17,5 +22,31 @@
   </dependencies>
   <build>
     <finalName>hsbxl-odm-render</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.4.0</version>
+      </plugin>
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>${jetty.version}</version>
+        <configuration>
+          <webApp>
+            <war>${project.build.directory}/${project.build.finalName}.war</war>
+            <contextPath>/</contextPath>
+          </webApp>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>jetty-run-war</id>
+      <build>
+        <defaultGoal>package jetty:run-war</defaultGoal>
+      </build>
+    </profile>
+  </profiles>
 </project>
