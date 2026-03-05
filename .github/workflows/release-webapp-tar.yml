@@ -1,0 +1,32 @@
+name: Build and Attach Webapp Tarball on Tag
+
+on:
+  push:
+    tags:
+      - '*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create webapp tar.gz (excluding WEB-INF)
+        run: |
+          rm -rf dist
+          mkdir -p dist/hsbxl-odm-render
+          cp -Rf src/main/webapp/* dist/hsbxl-odm-render
+          rm -Rf dist/hsbxl-odm-render/WEB-INF
+          tar -C dist -czvf hsbxl-odm-render.tar.gz hsbxl-odm-render
+
+      - name: Upload tarball to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: hsbxl-odm-render.tar.gz
+          fail_on_unmatched_files: true
